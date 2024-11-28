@@ -3,10 +3,10 @@
 #include "line.h"
 #include "option.h"
 
+#include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <locale.h>
 
 void translate(int invert);
 void search_word();
@@ -176,9 +176,11 @@ void list_all_word() {
   char word[100];
   char translate[100];
 
+  int count = 0;
   printf("\nList default dictionary\n");
   if (ptr != NULL) {
     while (fscanf(ptr, "%s %s", word, translate) == 2) {
+      count++;
       printf("%s : %s \n", word, translate);
     }
     fclose(ptr);
@@ -187,10 +189,13 @@ void list_all_word() {
   printf("\nList extra dictionary\n");
   if (ptr_extra != NULL) {
     while (fscanf(ptr_extra, "%s %s", word, translate) == 2) {
+      count++;
       printf("%s : %s \n", word, translate);
     }
     fclose(ptr_extra);
   }
+
+  printf("\nWord counts : %d\n", count);
 }
 
 void add_word() {
